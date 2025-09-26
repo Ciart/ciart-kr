@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --font-pixel: Galmuri9, sans-serif;
+  --default-mono-font-family: GalmuriMono9, monospace;
+}

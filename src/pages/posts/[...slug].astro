@@ -1,0 +1,73 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Prose from '../../components/Prose.astro';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  return posts.map((post) => {
+    // if (post.id === 'index') {
+    //   return { params: { slug: '' }, props: { post } };
+    // }
+
+    return {
+      params: { slug: post.id },
+      props: { post },
+    };
+  });
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const created = post.data.created;
+const createdText = `${created.getFullYear()}년 ${created.getMonth()}월 ${created.getDate()}일`;
+
+const tags = post.data.tags ?? [];
+const tagsText = tags.map((tag) => `#${tag}`).join(' ');
+---
+
+<Layout>
+  <div class="flex items-end pt-10 mb-6 justify-between">
+    <h1 class="title" data-title={post.data.title}>{post.data.title}</h1>
+    <div class="flex flex-col items-end text-sm ml-2 py-1">
+      <p class="text-blue-400">{tagsText}</p>
+      <p>{createdText}</p>
+    </div>
+  </div>
+  <Prose>
+    <Content />
+  </Prose>
+</Layout>
+
+<style>
+  /* .title {
+    translate: 0px -4px;
+    paint-order: stroke;
+    position: relative;
+    font-weight: 400;
+    font-size: 30px;
+    color: #ffffff;
+    -webkit-text-stroke: calc(6px) #000000;
+  }
+
+  .title::before {
+    content: attr(data-title);
+    translate: 0px 4px;
+    z-index: -10;
+    paint-order: stroke;
+    position: absolute;
+    color: #000000;
+    -webkit-text-stroke: calc(6px) #000000;
+  } */
+
+  .title {
+    font-weight: bold;
+    font-size: 30px;
+  }
+</style>
