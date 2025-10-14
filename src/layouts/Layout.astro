@@ -1,6 +1,8 @@
 ---
 import 'galmuri/dist/galmuri.css';
 import '../styles/global.css';
+
+import Header from '../components/Header.astro';
 ---
 
 <!DOCTYPE html>
@@ -13,6 +15,9 @@ import '../styles/global.css';
     <title>Ciart</title>
   </head>
   <body class="font-pixel">
+    <nav>
+      <Header />
+    </nav>
     <main class="max-lg:container lg:w-5xl mx-auto px-4">
       <slot />
     </main>

@@ -5,3 +5,7 @@
   --font-pixel: Galmuri9, sans-serif;
   --default-mono-font-family: GalmuriMono9, monospace;
 }
+
+@utility pixelated {
+  image-rendering: pixelated;
+}
