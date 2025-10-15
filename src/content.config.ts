@@ -10,6 +10,7 @@ export const collections = {
     loader: ObsidianMdLoader({
       base: 'src/blog',
       url: 'posts',
+      tagsUrl: '../tags',
       wikilinkFields: ['relateds'],
     }),
     schema: ({ image }) =>

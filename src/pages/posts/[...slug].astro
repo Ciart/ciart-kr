@@ -12,10 +12,6 @@ export async function getStaticPaths() {
   const posts = await getCollection('blog');
 
   return posts.map((post) => {
-    // if (post.id === 'index') {
-    //   return { params: { slug: '' }, props: { post } };
-    // }
-
     return {
       params: { slug: post.id },
       props: { post },
@@ -27,14 +23,17 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 
 const tags = post.data.tags ?? [];
-const tagsText = tags.map((tag) => `#${tag}`).join(' ');
 ---
 
 <Layout>
   <div class="flex items-end mb-6 justify-between">
     <h1 class="title">{post.data.title}</h1>
     <div class="flex flex-col items-end text-sm ml-2 py-1">
-      <p class="text-blue-400">{tagsText}</p>
+      <div class="flex gap-1">
+        {tags.map((tag) => (
+          <a href={`/tags/${tag}`} class="text-blue-400">{`#${tag}`}</a>
+        ))}
+      </div>
       <p>{getPostDateText(post)}</p>
     </div>
   </div>
