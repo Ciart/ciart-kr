@@ -12,6 +12,7 @@ export const collections = {
       url: 'posts',
       tagsUrl: '../tags',
       wikilinkFields: ['relateds'],
+      removeH1: true,
     }),
     schema: ({ image }) =>
       ObsidianDocumentSchema.extend({
