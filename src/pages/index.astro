@@ -20,8 +20,8 @@ const sortedPosts = posts
       sortedPosts.map((post) => (
         <a href={post.data.permalink}>
             <div class="flex justify-between items-baseline">
-              <h2 class="font-bold" transition:name={`post-title-${post.id}`}>{post.data.title}</h2>
-              <p class="text-sm" transition:name={`post-date-${post.id}`}>{getPostDateText(post)}</p>
+              <h2 class="font-bold">{post.data.title}</h2>
+              <p class="text-sm">{getPostDateText(post)}</p>
             </div>
             <p>{post.body}</p>
         </a>

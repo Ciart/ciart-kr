@@ -1,6 +1,4 @@
 ---
-import { ClientRouter, fade } from 'astro:transitions';
-
 import 'galmuri/dist/galmuri.css';
 import '../styles/global.css';
 
@@ -8,13 +6,12 @@ import Header from '../components/Header.astro';
 ---
 
 <!DOCTYPE html>
-<html lang="ko"  transition:name="root" transition:animate={fade({ duration: "0.1s" })}>
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <ClientRouter />
     <title>Ciart</title>
   </head>
   <body class="font-pixel">
