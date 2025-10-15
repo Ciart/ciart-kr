@@ -1,6 +1,7 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import { getPostDateText } from '../helpers/date';
 
 const posts = await getCollection('blog');
 const sortedPosts = posts
@@ -11,11 +12,6 @@ const sortedPosts = posts
       post.body &&
       post.body.substring(0, 100) + (post.body.length > 200 ? '...' : ''),
   }));
-
-const getDateText = (post: CollectionEntry<'blog'>) => {
-  const created = post.data.created;
-  return `${created.getFullYear()}년 ${created.getMonth()}월 ${created.getDate()}일`;
-};
 ---
 
 <Layout>
@@ -24,8 +20,8 @@ const getDateText = (post: CollectionEntry<'blog'>) => {
       sortedPosts.map((post) => (
         <a href={post.data.permalink}>
             <div class="flex justify-between items-baseline">
-              <h2 class="font-bold">{post.data.title}</h2>
-              <p class="text-sm">{getDateText(post)}</p>
+              <h2 class="font-bold" transition:name={`post-title-${post.id}`}>{post.data.title}</h2>
+              <p class="text-sm" transition:name={`post-date-${post.id}`}>{getPostDateText(post)}</p>
             </div>
             <p>{post.body}</p>
         </a>
