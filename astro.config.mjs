@@ -5,6 +5,8 @@ import { defineConfig } from 'astro/config';
 
 import expressiveCode from 'astro-expressive-code';
 
+import react from '@astrojs/react';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://ciart.kr',
@@ -29,5 +31,5 @@ export default defineConfig({
         codeFontFamily: 'GalmuriMono9, monospace',
         codeFontSize: '15px',
       },
-  })],
+  }), react()],
 });

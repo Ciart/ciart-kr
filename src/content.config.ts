@@ -2,16 +2,16 @@ import {
   ObsidianDocumentSchema,
   ObsidianMdLoader,
   ObsidianWikiLinkSchema,
-} from 'astro-loader-obsidian';
-import { defineCollection } from 'astro:content';
+} from "astro-loader-obsidian";
+import { defineCollection } from "astro:content";
 
 export const collections = {
   blog: defineCollection({
     loader: ObsidianMdLoader({
-      base: 'src/blog',
-      url: 'posts',
-      tagsUrl: '../tags',
-      wikilinkFields: ['relateds'],
+      base: "src/blog",
+      url: "posts",
+      tagsUrl: "../tags",
+      wikilinkFields: ["relateds"],
       removeH1: true,
     }),
     schema: ({ image }) =>
