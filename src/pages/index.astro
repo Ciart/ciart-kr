@@ -1,7 +1,70 @@
 ---
-import Layout from "@layouts/Layout.astro";
+import Layout from '@layouts/Layout.astro';
 ---
 
 <Layout>
-    <canvas class="absolute inset-0 w-full h-full"> </canvas>
+  <main-canvas class="absolute inset-0 w-full h-full overflow-hidden"></main-canvas>
 </Layout>
+
+<script>
+  import { Application, Assets, Container, Sprite } from 'pixi.js';
+
+  class MainCanvas extends HTMLElement {
+    app: Application | undefined;
+
+    async connectedCallback() {
+      const shadow = this.attachShadow({ mode: 'open' });
+      
+      this.app = new Application();
+
+      await this.app.init({
+        background: '#ffffff',
+        width: this.clientWidth,
+        height: this.clientHeight,
+        resolution: window.devicePixelRatio || 1,
+        autoDensity: true,
+        webgpu: {}
+      });
+
+      shadow.appendChild(this.app.canvas);
+
+      const container = new Container();
+      this.app.stage.addChild(container);
+
+      const texture = await Assets.load('https://pixijs.com/assets/bunny.png');
+
+      for (let i = 0; i < 25; i++) {
+        const bunny = new Sprite(texture);
+        bunny.x = (i % 5) * 40;
+        bunny.y = Math.floor(i / 5) * 40;
+        container.addChild(bunny);
+      }
+
+      container.x = this.app.screen.width / 2;
+      container.y = this.app.screen.height / 2;
+
+      container.pivot.x = container.width / 2;
+      container.pivot.y = container.height / 2;
+
+      const handleResize = () => {
+        if (!this.app) return;
+        this.app.renderer.resize(this.clientWidth, this.clientHeight);
+        container.x = this.app.screen.width / 2;
+        container.y = this.app.screen.height / 2;
+      };
+      window.addEventListener('resize', handleResize);
+
+      this.app.ticker.add((time) => {
+        container.rotation -= 0.01 * time.deltaTime;
+      });
+    }
+
+    disconnectedCallback() {
+      if (this.app) {
+        this.app.destroy(true, { children: true, texture: true });
+      }
+    }
+  }
+
+  customElements.define('main-canvas', MainCanvas);
+</script>
