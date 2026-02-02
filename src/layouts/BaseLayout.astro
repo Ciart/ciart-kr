@@ -17,6 +17,7 @@ const { title, isDarkMode } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#ffffff">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title ? `${title} - Ciart` : 'Ciart'}</title>
@@ -25,7 +26,7 @@ const { title, isDarkMode } = Astro.props;
     <nav class="max-lg:container lg:w-5xl mx-auto absolute z-50">
       <Header isDarkMode={isDarkMode} />
     </nav>
-    <div id="a" class="bg-white w-full flex-1 corner-smooth">
+    <div id="main-background" class="bg-white w-full flex-1 corner-smooth">
       <main
         class="mt-header-height max-lg:container lg:w-5xl mx-auto px-4 text-black/85 w-full"
       >
@@ -44,23 +45,8 @@ const { title, isDarkMode } = Astro.props;
 </style>
 
 <script>
-const main = document.querySelector<HTMLDivElement>('#a');
-    const footer = document.querySelector<HTMLElement>('footer');
-
-    if (main && footer) {
-      const footerRect = footer.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      
-      if (footerRect.top <= windowHeight) {
-        const progress = windowHeight - footerRect.top;
-        main.style.borderRadius = progress / 96 * 64 + 'px';
-      } else {
-        main.style.borderRadius = '0px';
-      }
-    }
-
-  window.addEventListener('scroll', () => {
-    const main = document.querySelector<HTMLDivElement>('#a');
+  const updateBorderRadius = () => {
+    const main = document.querySelector<HTMLDivElement>('#main-background');
     const footer = document.querySelector<HTMLElement>('footer');
 
     if (main && footer) {
@@ -74,5 +60,8 @@ const main = document.querySelector<HTMLDivElement>('#a');
         main.style.borderRadius = '0px';
       }
     }
-  });
+  };
+
+  updateBorderRadius();
+  window.addEventListener('scroll', updateBorderRadius);
 </script>
