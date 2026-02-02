@@ -1,10 +1,10 @@
 ---
-import Layout from '@layouts/Layout.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 ---
 
-<Layout>
+<BaseLayout>
   <main-canvas class="absolute inset-0 w-full h-full overflow-hidden"></main-canvas>
-</Layout>
+</BaseLayout>
 
 <script>
   import { Application, Assets, Container, Sprite } from 'pixi.js';
@@ -19,11 +19,11 @@ import Layout from '@layouts/Layout.astro';
 
       await this.app.init({
         background: '#ffffff',
+        backgroundAlpha: 0,
         width: this.clientWidth,
         height: this.clientHeight,
         resolution: window.devicePixelRatio || 1,
         autoDensity: true,
-        webgpu: {}
       });
 
       shadow.appendChild(this.app.canvas);

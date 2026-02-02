@@ -3,7 +3,7 @@ import {
   ObsidianMdLoader,
   ObsidianWikiLinkSchema,
 } from "astro-loader-obsidian";
-import { defineCollection } from "astro:content";
+import { defineCollection, z } from "astro:content";
 
 export const collections = {
   blog: defineCollection({
@@ -23,6 +23,7 @@ export const collections = {
           .optional(),
         image: image().optional(),
         cover: image().optional(),
+        published: z.date().optional(),
       }),
   }),
 };

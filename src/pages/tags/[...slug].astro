@@ -1,6 +1,6 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
-import Layout from '@layouts/Layout.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 
 interface Props {
   posts: CollectionEntry<'blog'>[];
@@ -23,7 +23,7 @@ export async function getStaticPaths() {
 const { posts } = Astro.props;
 ---
 
-<Layout>
+<BaseLayout>
   {
     posts.map((post) => (
       <article>
@@ -34,4 +34,4 @@ const { posts } = Astro.props;
       </article>
     ))
   }
-</Layout>
+</BaseLayout>

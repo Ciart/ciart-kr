@@ -6,29 +6,12 @@
     --default-mono-font-family: GalmuriMono9, monospace;
 
     --color-ciart: #619a42;
+
+    --spacing-header-height: 4rem;
 }
 
 @utility pixelated {
     image-rendering: pixelated;
-}
-
-/* Auto contrast text color based on background */
-@utility auto-contrast {
-    color: white;
-
-    @supports (color: color-contrast(white vs black, white)) {
-        color: color-contrast(var(--bg-color) vs black, white);
-    }
-}
-
-/* Light background = dark text */
-.bg-light-contrast {
-    @apply text-black;
-}
-
-/* Dark background = light text */
-.bg-dark-contrast {
-    @apply text-white;
 }
 
 @utility prose-default {
@@ -68,4 +51,18 @@
     --tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
     --tw-prose-invert-th-borders: var(--color-gray-600);
     --tw-prose-invert-td-borders: var(--color-gray-700);
+}
+
+:root {
+  --brm: 1;
+}
+
+@supports (corner-shape: superellipse(var(--brm))) {
+  :root {
+    --brm: 1.6;
+  }
+}
+
+@utility corner-smooth {
+  corner-shape: superellipse(var(--brm));
 }
